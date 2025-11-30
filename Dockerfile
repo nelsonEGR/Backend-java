@@ -22,7 +22,7 @@ COPY src ./src
 RUN ./mvnw clean package -DskipTests
 
 # Copiar el JAR generado
-COPY target/*.jar app.jar
+RUN cp target/*.jar app.jar
 
 # Exponer el puerto (Render inyecta PORT, pero esto ayuda en local)
 EXPOSE 8080
