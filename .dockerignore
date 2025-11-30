@@ -1,4 +1,23 @@
+# Archivos y carpetas de compilación
 target/
+*.class
+
+# Configuración de IDEs
 .git/
 .idea/
+.vscode/
 *.iml
+
+# Archivos temporales y logs
+*.log
+logs/
+tmp/
+*.swp
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Otros innecesarios
+*.bak
+*.tmp
