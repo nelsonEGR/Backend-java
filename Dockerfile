@@ -1,30 +1,26 @@
-# Imagen base con JDK 17 (compatible con Spring Boot)
-FROM eclipse-temurin:17-jdk
-
-# Directorio de trabajo dentro del contenedor
+# Etapa 1: Build con Maven
+FROM eclipse-temurin:17-jdk AS build
 WORKDIR /app
 
-# Copiar pom.xml y el wrapper de Maven
+# Copiar pom.xml y dependencias
 COPY pom.xml .
 COPY mvnw .
 COPY .mvn .mvn
-
-# Dar permisos de ejecución al wrapper
 RUN chmod +x mvnw
-
-# Descargar dependencias (esto ayuda a cachear y acelerar builds)
 RUN ./mvnw dependency:go-offline
 
-# Copiar el código fuente
+# Copiar código fuente y compilar
 COPY src ./src
-
-# Compilar y empaquetar la aplicación (sin tests para más rápido)
 RUN ./mvnw clean package -DskipTests
 
-# Copiar el JAR generado
-RUN cp target/*.jar app.jar
+# Etapa 2: Imagen final solo con el JAR
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
 
-# Exponer el puerto (Render inyecta PORT, pero esto ayuda en local)
+# Copiar el JAR desde la etapa de build
+COPY --from=build /app/target/*.jar app.jar
+
+# Exponer puerto (Render inyecta PORT automáticamente)
 EXPOSE 8080
 
 # Comando de inicio
