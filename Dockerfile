@@ -9,6 +9,9 @@ COPY pom.xml .
 COPY mvnw .
 COPY .mvn .mvn
 
+# Dar permisos de ejecución al wrapper
+RUN chmod +x mvnw
+
 # Descargar dependencias (esto ayuda a cachear y acelerar builds)
 RUN ./mvnw dependency:go-offline
 
