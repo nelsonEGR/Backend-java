@@ -1,6 +1,7 @@
-# Archivos y carpetas de compilación
+# Compilación
 target/
 *.class
+build/
 
 # Configuración de IDEs
 .git/
@@ -13,11 +14,22 @@ target/
 logs/
 tmp/
 *.swp
+*.bak
+*.tmp
 
 # Archivos del sistema
 .DS_Store
 Thumbs.db
+ehthumbs.db
+desktop.ini
 
-# Otros innecesarios
-*.bak
-*.tmp
+# Maven/Gradle
+.mvn/wrapper/maven-wrapper.jar
+.gradle/
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Variables de entorno
+*.env
